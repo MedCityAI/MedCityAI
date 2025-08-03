@@ -278,7 +278,7 @@
  						 const authors = articleJson.authors;
  						 const firstAuthor = authors[0].name;
  						 const journal = articleJson.source;
- 						 const pubdate = articleJson.pubdate;
+ 						 const pubdate = articleJson.epubdate;
 						 return `${firstAuthor}, et al. <br> <i>${journal}</i>. (${pubdate})`;
 				  }
 				  ps[index].innerHTML = formatCitation(article);
@@ -296,6 +296,7 @@
 	</body>
 
 </html>
+
 
 
 
