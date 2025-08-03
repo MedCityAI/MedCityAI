@@ -271,7 +271,7 @@
 			      pmids.forEach((pmid, index) => {
 				const article = esummaryData.result[pmid];
 				if (article && h2s[index]) {
-				  h2s[index].textContent = article.title;
+				  h2s[index].textContent = article.shorttitle;
 				}
 				if (article && ps[index]) {
 				  function formatCitation(articleJson) {
@@ -296,6 +296,7 @@
 	</body>
 
 </html>
+
 
 
 
