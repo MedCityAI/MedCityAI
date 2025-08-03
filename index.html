@@ -273,7 +273,9 @@
 				const article = esummaryData.result[pmid];
 				if (article && h2s[index]) {
 				  h2s[index].textContent = article.title;
-				  ps[index].textContent = article.source
+				}
+				if (article && ps[index]) {
+				  ps[index].textContent = article.source;
 				}
 			      });
 			
@@ -288,5 +290,6 @@
 	</body>
 
 </html>
+
 
 
