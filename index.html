@@ -267,7 +267,7 @@
 			
 			      // Step 3: Replace <h2>TitleN</h2> in each article block
 			      const h2s = document.querySelectorAll('#main section.tiles article h2');
-			      const ps = document.querySelectorAll('#main section.tiles article ps');
+			      const ps = document.querySelectorAll('#main section.tiles article p');
 			      pmids.forEach((pmid, index) => {
 				const article = esummaryData.result[pmid];
 				if (article && h2s[index]) {
@@ -289,6 +289,7 @@
 	</body>
 
 </html>
+
 
 
 
