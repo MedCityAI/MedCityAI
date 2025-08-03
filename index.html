@@ -242,6 +242,48 @@
 			<script src="assets/js/util.js"></script>
 			<script src="assets/js/main.js"></script>
 
+
+
+			<script>
+			  async function updateTileTitles() {
+			    const searchTerm = `("AI"[Title/Abstract] OR "deep learning"[Title/Abstract] OR "artificial intelligence"[Title/Abstract] OR "Natural Language Processing"[Title/Abstract] OR "Large Language"[Title/Abstract]) AND ("Rochester"[Affiliation] AND ("MN"[Affiliation] OR "Minnesota"[Affiliation]))`;
+			    const encodedTerm = encodeURIComponent(searchTerm);
+			
+			    try {
+			      // Step 1: Get PMIDs from esearch
+			      const esearchUrl = `https://eutils.ncbi.nlm.nih.gov/entrez/eutils/esearch.fcgi?db=pubmed&retmax=12&sort=pub+date&retmode=json&term=${encodedTerm}`;
+			      const esearchResponse = await fetch(esearchUrl);
+			      const esearchData = await esearchResponse.json();
+			      const pmids = esearchData.esearchresult.idlist;
+			
+			      if (!pmids.length) {
+				console.warn("No PubMed articles found.");
+				return;
+			      }
+			
+			      // Step 2: Get article summaries
+			      const esummaryUrl = `https://eutils.ncbi.nlm.nih.gov/entrez/eutils/esummary.fcgi?db=pubmed&id=${pmids.join(',')}&retmode=json`;
+			      const esummaryResponse = await fetch(esummaryUrl);
+			      const esummaryData = await esummaryResponse.json();
+			
+			      // Step 3: Replace <h2>TitleN</h2> in each article block
+			      const h2s = document.querySelectorAll('#main section.tiles article h2');
+			      pmids.forEach((pmid, index) => {
+				const article = esummaryData.result[pmid];
+				if (article && h2s[index]) {
+				  h2s[index].textContent = article.title;
+				}
+			      });
+			
+			    } catch (error) {
+			      console.error('Failed to load PubMed articles:', error);
+			    }
+			  }
+			
+			  // Run this on page load
+			  window.addEventListener('load', updateTileTitles);
+			</script>
 	</body>
 
 </html>
+
