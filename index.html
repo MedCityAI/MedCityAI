@@ -274,7 +274,15 @@
 				  h2s[index].textContent = article.title;
 				}
 				if (article && ps[index]) {
-				  ps[index].textContent = article.journal;
+				  function formatCitation(articleJson) {
+ 						 const authors = articleJson.authors;
+ 						 const firstAuthor = authors.length ? authors[0].name : "Unknown Author";
+ 						 const journal = articleJson.fulljournalname || articleJson.source;
+ 						 const yearMatch = articleJson.pubdate.match(/\d{4}/);
+						 const year = yearMatch ? yearMatch[0] : "n.d.";
+						 return `${firstAuthor}, et al., ${journal}, ${year}`;
+				  }
+				  ps[index].textContent = formatCitation(article);
 				}
 			      });
 			
@@ -289,6 +297,7 @@
 	</body>
 
 </html>
+
 
 
 
