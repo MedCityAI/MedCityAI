@@ -51,7 +51,7 @@
 					<div id="main">
 						<div class="inner">
 							<header>
-								<h1>This is MedCityAI, real-time research updates from <br />
+								<h1>This is MedCityAI, providing real-time research analytics from <br />
 								beneath the corntower <a href="http://html5up.net">HTML5 UP</a>.</h1>
 								<p>Etiam quis viverra lorem, in semper lorem. Sed nisl arcu euismod sit amet nisi euismod sed cursus arcu elementum ipsum arcu vivamus quis venenatis orci lorem ipsum et magna feugiat veroeros aliquam. Lorem ipsum dolor sit amet nullam dolore.</p>
 							</header>
@@ -268,10 +268,12 @@
 			
 			      // Step 3: Replace <h2>TitleN</h2> in each article block
 			      const h2s = document.querySelectorAll('#main section.tiles article h2');
+			      const ps = document.querySelectorAll('#main section.tiles article h2');
 			      pmids.forEach((pmid, index) => {
 				const article = esummaryData.result[pmid];
 				if (article && h2s[index]) {
 				  h2s[index].textContent = article.title;
+				  ps[index].textContent = article.source
 				}
 			      });
 			
@@ -286,4 +288,5 @@
 	</body>
 
 </html>
+
 
