@@ -5,6 +5,7 @@
 	Phantom by HTML5 UP
 	html5up.net | @ajlkn
 	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+
 */
 
 html, body, div, span, applet, object,
@@ -3327,3 +3328,34 @@ input, select, textarea {
 			}
 
 		}
+
+/* Added - Buttons on Main */
+.category-bar {
+  display: flex;
+  flex-wrap: nowrap;
+  overflow-x: auto;
+  gap: 10px;
+  padding: 10px 0;
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none; /* IE 10+ */
+}
+
+.category-bar::-webkit-scrollbar {
+  display: none; /* Chrome/Safari */
+}
+
+.category-button {
+  white-space: nowrap;
+  padding: 0.5em 1em;
+  border: 1px solid #ccc;
+  background: #f4f4f4;
+  cursor: pointer;
+  font-size: 1em;
+  border-radius: 5px;
+  transition: background 0.2s ease;
+  flex-shrink: 0;
+}
+
+.category-button:hover {
+  background: #ddd;
+}
