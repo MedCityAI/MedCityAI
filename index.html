@@ -284,13 +284,11 @@
 					}
 					ps[index].innerHTML = formatCitation(article);
 				}
-			          
 				if (article && alinks[index]) {
-					link.href = `https://pubmed.ncbi.nlm.nih.gov/${articleJson.uid}/`;
-					link.target = "_blank"; // open in new tab
-					link.rel = "noopener noreferrer"; // security best practice
-				}
-  				
+					alinks[index].href = `https://pubmed.ncbi.nlm.nih.gov/${articleJson.uid}/`;
+					alinks[index].target = "_blank";
+			        	alinks[index].rel = "noopener noreferrer";
+				}						
 				
 			      });
 			
@@ -305,6 +303,7 @@
 	</body>
 
 </html>
+
 
 
 
