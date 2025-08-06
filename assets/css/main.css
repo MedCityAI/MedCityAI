@@ -200,7 +200,6 @@ input, select, textarea {
 		font-weight: 900;
 		line-height: 1.5;
 		margin: 0 0 2em 0;
-		text-transform: uppercase;
 		letter-spacing: 0.35em;
 	}
 
@@ -3328,12 +3327,3 @@ input, select, textarea {
 			}
 
 		}
-
-
-/* Match tile text to MedCityAI title style */
-.tiles article h2,
-.tiles article p {
-  font-family: "Source Sans Pro", sans-serif; /* use the exact family */
-  font-weight: 700;                           /* or 600 if it's too bold */
-  letter-spacing: 0.02em;                     /* optional, makes text breathe */
-}
