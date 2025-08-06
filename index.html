@@ -260,55 +260,66 @@
 			<script src="assets/js/util.js"></script>
 			<script src="assets/js/main.js"></script>
 
-
-
+		
 			<script>
-			  async function updateTileTitles() {
-			    const searchTerm = `("AI"[Title/Abstract] OR "deep learning"[Title/Abstract] OR "artificial intelligence"[Title/Abstract] OR "Natural Language Processing"[Title/Abstract] OR "Large Language"[Title/Abstract]) AND ("Rochester"[Affiliation] AND ("MN"[Affiliation] OR "Minnesota"[Affiliation]))`;
+			  async function updateTileTitles(selectedCategory) {
+			    let searchTerm;
+			
+			    // Map dropdown values to actual search terms
+			    const searchMap = {
+			      all: `("AI"[Title/Abstract] OR "deep learning"[Title/Abstract] OR "artificial intelligence"[Title/Abstract] OR "Natural Language Processing"[Title/Abstract] OR "Large Language"[Title/Abstract])`,
+			      ml: `"Machine Learning"[Title/Abstract]`,
+			      dl: `"Deep Learning"[Title/Abstract]`,
+			      cv: `"Computer Vision"[Title/Abstract]`,
+			      genai: `"Generative AI"[Title/Abstract]`,
+			      expert: `"Expert Systems"[Title/Abstract]`,
+			      vr: `"Virtual Reality"[Title/Abstract]`
+			    };
+			
+			    const baseLocation = `("Rochester"[Affiliation] AND ("MN"[Affiliation] OR "Minnesota"[Affiliation]))`;
+			    const categoryQuery = searchMap[selectedCategory] || searchMap["all"];
+			    searchTerm = `${categoryQuery} AND ${baseLocation}`;
 			    const encodedTerm = encodeURIComponent(searchTerm);
 			
 			    try {
-			      // Step 1: Get PMIDs from esearch
 			      const esearchUrl = `https://eutils.ncbi.nlm.nih.gov/entrez/eutils/esearch.fcgi?db=pubmed&retmax=12&sort=pub+date&retmode=json&term=${encodedTerm}`;
 			      const esearchResponse = await fetch(esearchUrl);
 			      const esearchData = await esearchResponse.json();
 			      const pmids = esearchData.esearchresult.idlist;
 			
 			      if (!pmids.length) {
-				console.warn("No PubMed articles found.");
-				return;
+			        console.warn("No PubMed articles found.");
+			        return;
 			      }
 			
-			      // Step 2: Get article summaries
 			      const esummaryUrl = `https://eutils.ncbi.nlm.nih.gov/entrez/eutils/esummary.fcgi?db=pubmed&id=${pmids.join(',')}&retmode=json`;
 			      const esummaryResponse = await fetch(esummaryUrl);
 			      const esummaryData = await esummaryResponse.json();
 			
-			      // Step 3: Replace <h2>TitleN</h2> in each article block
 			      const h2s = document.querySelectorAll('#main section.tiles article h2');
 			      const ps = document.querySelectorAll('#main section.tiles article div p');
 			      const alinks = document.querySelectorAll('#main section.tiles article a');
+			
 			      pmids.forEach((pmid, index) => {
-				const article = esummaryData.result[pmid];
-				if (article && h2s[index]) {
-				  h2s[index].textContent = article.sorttitle;
-				}
-				if (article && ps[index]) {
-					function formatCitation(articleJson) {
- 						 const authors = articleJson.authors;
- 						 const firstAuthor = authors[0].name;
- 						 const journal = articleJson.source;
- 						 const pubdate = articleJson.epubdate;
-						 return `${firstAuthor}, et al. <br> <i>${journal}</i>. (${pubdate})`;
-					}
-					ps[index].innerHTML = formatCitation(article);
-				}
-				if (article && alinks[index]) {
-					alinks[index].href = `https://pubmed.ncbi.nlm.nih.gov/${article.uid}`;
-					alinks[index].target = "_blank";
-			        	alinks[index].rel = "noopener noreferrer";
-				}						
-				
+			        const article = esummaryData.result[pmid];
+			        if (article && h2s[index]) {
+			          h2s[index].textContent = article.sorttitle;
+			        }
+			        if (article && ps[index]) {
+			          function formatCitation(articleJson) {
+			            const authors = articleJson.authors;
+			            const firstAuthor = authors[0]?.name || "Unknown Author";
+			            const journal = articleJson.source || "Unknown Journal";
+			            const pubdate = articleJson.epubdate || articleJson.pubdate || "Unknown Date";
+			            return `${firstAuthor}, et al. <br> <i>${journal}</i>. (${pubdate})`;
+			          }
+			          ps[index].innerHTML = formatCitation(article);
+			        }
+			        if (article && alinks[index]) {
+			          alinks[index].href = `https://pubmed.ncbi.nlm.nih.gov/${article.uid}`;
+			          alinks[index].target = "_blank";
+			          alinks[index].rel = "noopener noreferrer";
+			        }
 			      });
 			
 			    } catch (error) {
@@ -316,12 +327,23 @@
 			    }
 			  }
 			
-			  // Run this on page load
-			  window.addEventListener('load', updateTileTitles);
+			  // Run once on initial load with default category
+			  window.addEventListener('load', () => updateTileTitles("all"));
+			
+			  // Add listener for dropdown change
+			  document.getElementById('category-select').addEventListener('change', function () {
+			    const selected = this.value;
+			    updateTileTitles(selected);
+			  });
 			</script>
+
+	
+	
+	
 	</body>
 
 </html>
+
 
 
 
