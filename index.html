@@ -293,32 +293,52 @@
 			      const esummaryResponse = await fetch(esummaryUrl);
 			      const esummaryData = await esummaryResponse.json();
 			
-			      const h2s = document.querySelectorAll('#main section.tiles article h2');
-			      const ps = document.querySelectorAll('#main section.tiles article div p');
-			      const alinks = document.querySelectorAll('#main section.tiles article a');
-			
-			      pmids.forEach((pmid, index) => {
-			        const article = esummaryData.result[pmid];
-			        if (article && h2s[index]) {
-			          h2s[index].textContent = article.sorttitle;
-			        }
-			        if (article && ps[index]) {
-			          function formatCitation(articleJson) {
-			            const authors = articleJson.authors;
-			            const firstAuthor = authors[0]?.name || "Unknown Author";
-			            const journal = articleJson.source || "Unknown Journal";
-			            const pubdate = articleJson.epubdate || articleJson.pubdate || "Unknown Date";
-			            return `${firstAuthor}, et al. <br> <i>${journal}</i>. (${pubdate})`;
-			          }
-			          ps[index].innerHTML = formatCitation(article);
-			        }
-			        if (article && alinks[index]) {
-			          alinks[index].href = `https://pubmed.ncbi.nlm.nih.gov/${article.uid}`;
-			          alinks[index].target = "_blank";
-			          alinks[index].rel = "noopener noreferrer";
-			        }
-			      });
-			
+
+				  // Prepare filtered list of valid articles (≤12 word citation)
+				  const validArticles = [];
+				  pmids.forEach(pmid => {
+					  const article = esummaryData.result[pmid];
+					  if (!article) return;
+					
+					  const authors = article.authors;
+					  const firstAuthor = authors[0]?.name || "Unknown Author";
+					  const journal = article.source || "Unknown Journal";
+					  const pubdate = article.epubdate || article.pubdate || "Unknown Date";
+					  const citation = `${firstAuthor}, et al. <br> <i>${journal}</i>. (${pubdate})`;
+					
+					  const wordCount = citation.replace(/<[^>]+>/g, '').split(/\s+/).filter(Boolean).length;
+					
+					  if (wordCount <= 12) {
+					    validArticles.push({
+					      title: article.sorttitle,
+					      citation: citation,
+					      url: `https://pubmed.ncbi.nlm.nih.gov/${article.uid}`
+					    });
+					  }
+				  });
+
+
+
+				  // Fill in tiles only with valid articles
+				  const h2s = document.querySelectorAll('#main section.tiles article h2');
+				  const ps = document.querySelectorAll('#main section.tiles article div p');
+				  const alinks = document.querySelectorAll('#main section.tiles article a');
+					
+				  for (let i = 0; i < h2s.length; i++) {
+					  if (i < validArticles.length) {
+						h2s[i].textContent = validArticles[i].title;
+						ps[i].innerHTML = validArticles[i].citation;
+						alinks[i].href = validArticles[i].url;
+						alinks[i].target = "_blank";
+						alinks[i].rel = "noopener noreferrer";
+						alinks[i].parentElement.style.display = "block";
+					  } else {
+						// Hide tiles if not enough valid articles
+						alinks[i].parentElement.style.display = "none";
+					  }
+				  }
+
+
 			    } catch (error) {
 			      console.error('Failed to load PubMed articles:', error);
 			    }
@@ -340,6 +360,7 @@
 	</body>
 
 </html>
+
 
 
 
