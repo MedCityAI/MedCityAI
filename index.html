@@ -58,12 +58,11 @@
 								<label for="category-select" style="font-weight: bold;">Most Recently Published:</label>
 								<select id="category-select" class="category-dropdown">
 								    <option value="all">-- All Categories --</option>
-								    <option value="ml">Machine Learning</option>
 								    <option value="dl">Deep Learning</option>
-								    <option value="cv">Computer Vision</option>
 								    <option value="genai">Generative AI</option>
-								    <option value="expert">Expert Systems</option>
-								    <option value="vr">Virtual Reality</option>
+								    <option value="cv">Computer Vision</option>
+								    <option value="rad">Radiology</option>
+								    <option value="inf">Informatics</option>
 								</select>
 								
 								
@@ -268,12 +267,11 @@
 			    // Map dropdown values to actual search terms
 			    const searchMap = {
 			      all: `("AI"[Title/Abstract] OR "deep learning"[Title/Abstract] OR "artificial intelligence"[Title/Abstract] OR "Natural Language Processing"[Title/Abstract] OR "Large Language"[Title/Abstract])`,
-			      ml: `"Machine Learning"[Title/Abstract]`,
-			      dl: `"Deep Learning"[Title/Abstract]`,
-			      cv: `"Computer Vision"[Title/Abstract]`,
-			      genai: `"Generative AI"[Title/Abstract]`,
-			      expert: `"Expert Systems"[Title/Abstract]`,
-			      vr: `"Virtual Reality"[Title/Abstract]`
+			      dl: `"Deep Learning"[Title/Abstract] OR "Neural Networks"[Title/Abstract] OR "Transfer Learning"[Title/Abstract] OR "Adversarial Network"[Title/Abstract] OR "Reinforcement Learning"[Title/Abstract]`,
+			      cv: `"Computer Vision"[Title/Abstract]  OR "Facial Recognition"[Title/Abstract] OR "Segmentation"[Title/Abstract] OR "Feature Extraction"[Title/Abstract] OR "Object Detection"[Title/Abstract]`,
+			      genai: `"Generative AI"[Title/Abstract] OR "GAN"[Title/Abstract] OR "Adversarial Network"[Title/Abstract] OR "Transformer"[Title/Abstract] OR "Large Language"[Title/Abstract] OR "LLM"[Title/Abstract] OR "GPT"[Title/Abstract] OR "Foundation Model"[Title/Abstract] OR "NLP"[Title/Abstract]`,
+			      rad: `"Radiology"[Title/Abstract] OR "x-ray"[Title/Abstract] OR "CT"[Title/Abstract] OR "MRI"[Title/Abstract] OR "ultrasound"[Title/Abstract] OR "tomography"[Title/Abstract] OR "nuclear medicine"[Title/Abstract] OR "angiography"[Title/Abstract] OR "echocardiography"[Title/Abstract]`,
+			      inf: `"Health Informatics"[Title/Abstract] OR "computer science"[Title/Abstract] OR "Triage"[Title/Abstract] OR "Medical Records"[Title/Abstract] OR "Health Records"[Title/Abstract] OR "Telemedicine"[Title/Abstract] OR "bioinformatics"[Title/Abstract] OR "Cybersecurity"[Title/Abstract] OR "workflow management"[Title/Abstract] OR "privacy"[Title/Abstract]`
 			    };
 			
 			    const baseLocation = `("Rochester"[Affiliation] AND ("MN"[Affiliation] OR "Minnesota"[Affiliation]))`;
