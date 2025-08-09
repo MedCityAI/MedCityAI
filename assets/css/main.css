@@ -255,7 +255,7 @@ input, select, textarea {
 	  	}
 	
 	  	.tiles article > a .content h2 {
-	    	font-size: 1.2em; /* Smaller title font */
+	    	font-size: 1.0em; /* Smaller title font */
 	  	}
 	
 	  	.tiles article > a .content p {
@@ -3344,6 +3344,7 @@ input, select, textarea {
 			}
 
 		}
+
 
 
 
