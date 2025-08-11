@@ -2789,11 +2789,13 @@ input, select, textarea {
 			.tiles {
 				margin: -1.25em 0 0 -1.25em;
 			}
-
-				.tiles article {
-					width: calc(33.33333% - 1.25em);
-					margin: 1.25em 0 0 1.25em;
-				}
+			.tiles article:hover > .image {
+			    transform: none;
+			}
+			.tiles article {
+				width: calc(33.33333% - 1.25em);
+				margin: 1.25em 0 0 1.25em;
+			}
 
 		}
 
@@ -2803,10 +2805,13 @@ input, select, textarea {
 				margin: -2.5em 0 0 -2.5em;
 			}
 
-				.tiles article {
-					width: calc(50% - 2.5em);
-					margin: 2.5em 0 0 2.5em;
-				}
+			.tiles article {
+				width: calc(50% - 2.5em);
+				margin: 2.5em 0 0 2.5em;
+			}
+			.tiles article:hover > .image {
+    			transform: none;
+			}
 
 		}
 
@@ -2816,17 +2821,13 @@ input, select, textarea {
 				margin: -1.25em 0 0 -1.25em;
 			}
 
-				.tiles article {
-					width: calc(50% - 1.25em);
-					margin: 1.25em 0 0 1.25em;
-				}
-
-					.tiles article:hover > .image {
-						-moz-transform: scale(1.0);
-						-webkit-transform: scale(1.0);
-						-ms-transform: scale(1.0);
-						transform: scale(1.0);
-					}
+			.tiles article {
+				width: calc(50% - 1.25em);
+				margin: 1.25em 0 0 1.25em;
+			}
+			.tiles article:hover > .image {
+    			transform: none;
+			}
 
 		}
 
@@ -2836,10 +2837,13 @@ input, select, textarea {
 				margin: 0;
 			}
 
-				.tiles article {
-					width: 100%;
-					margin: 1.25em 0 0 0;
-				}
+			.tiles article {
+				width: 100%;
+				margin: 0 0 0 0;
+			}
+			.tiles article:hover > .image {
+   				transform: none;
+			}
 
 		}
 
@@ -3344,6 +3348,7 @@ input, select, textarea {
 			}
 
 		}
+
 
 
 
