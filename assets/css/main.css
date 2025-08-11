@@ -22,7 +22,7 @@ section, summary, time, mark, audio, video {
 	margin: 0;
 	padding: 0;
 	border: 0;
-	font-size: 100%;
+	font-size: 90%;
 	font: inherit;
 	vertical-align: baseline;}
 
@@ -127,7 +127,7 @@ input, select, textarea {
 		@media screen and (max-width: 1680px) {
 
 			body, input, select, textarea {
-				font-size: 14pt;
+				font-size: 12pt;
 			}
 
 		}
@@ -135,7 +135,7 @@ input, select, textarea {
 		@media screen and (max-width: 1280px) {
 
 			body, input, select, textarea {
-				font-size: 12pt;
+				font-size: 11pt;
 			}
 
 		}
@@ -168,9 +168,9 @@ input, select, textarea {
 	}
 
 	h1 {
-		font-size: 2.75em;
+		font-size: 2.3em;
 		font-weight: 700;
-		line-height: 1.3;
+		line-height: 1.1;
 		margin: 0 0 1em 0;
 		letter-spacing: -0.035em;
 	}
@@ -3344,6 +3344,7 @@ input, select, textarea {
 			}
 
 		}
+
 
 
 
