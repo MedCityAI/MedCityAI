@@ -248,21 +248,6 @@ input, select, textarea {
 
 	}
 
-	/* Target desktop only */
-	@media screen and (min-width: 769px) {
-	  	.tiles article > a .content {
-	    	text-align: center; /* Center both h2 and p */
-	  	}
-	
-	  	.tiles article > a .content h2 {
-	    	font-size: 0.9em; /* Smaller title font */
-	  	}
-	
-	  	.tiles article > a .content p {
-	    	font-size: 0.9em; /* Smaller paragraph font */
-	  	}
-	}
-
 	sub {
 		font-size: 0.8em;
 		position: relative;
@@ -3348,6 +3333,7 @@ input, select, textarea {
 			}
 
 		}
+
 
 
 
